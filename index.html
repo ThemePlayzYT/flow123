@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ThemeFlow – Create. Customize. Animate.</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="splash"><b>Theme<span class="gt">Flow</span></b></div>
+<div class="bg-glow"></div>
+
+<header class="nav">
+  <div class="logo" data-go="home">Theme<span class="gt">Flow</span></div>
+  <nav>
+    <a data-go="home" class="on">Home</a>
+    <a data-go="library">Explore</a>
+    <a data-go="library">Categories</a>
+    <a data-go="projects">My Projects</a>
+    <a data-go="projects">Profile</a>
+    <a href="character.html">Minecraft Characters</a>
+    <a data-go="pricing">Pricing</a>
+  </nav>
+</header>
+
+<main>
+  <section id="home" class="view">
+    <div class="hero">
+      <canvas id="heroFx"></canvas>
+      <span class="orb" style="top:14%;left:6%"></span>
+      <span class="orb" style="bottom:12%;right:8%;width:170px;height:170px;animation-delay:-3s"></span>
+      <p class="eyebrow">Create. Customize. Animate.</p>
+      <h1>Your Animations.<br><span class="gt grad">Your Style.</span></h1>
+      <p class="sub">Discover, customize and download stunning animations for your videos.</p>
+      <div class="cta">
+        <button class="btn" data-go="library">Explore Animations</button>
+        <button class="btn ghost" data-go="library">Start Creating</button>
+      </div>
+    </div>
+    <div id="rows"></div>
+    <div class="row"><div class="row-h"><h2>How ThemeFlow Works</h2></div>
+      <div class="feat">
+        <div><b>1. Pick a template</b>Browse animated previews and choose one that fits your video.</div>
+        <div><b>2. Customize</b>Change the text, font, colors, outline, glow and motion with live preview.</div>
+        <div><b>3. Export</b>Render and download your animation as WebM, MP4 (where your browser supports it) or PNG.</div>
+      </div>
+    </div>
+    <div class="row"><div class="row-h"><h2>Why Choose ThemeFlow</h2></div>
+      <div class="feat">
+        <div><b>Live previews</b>Every card plays its real animation, not a screenshot.</div>
+        <div><b>Real rendering</b>Exports are encoded by your browser with honest progress.</div>
+        <div><b>Saved work</b>Projects stay in your browser so you can pick up where you left off.</div>
+        <div><b>Built to grow</b>Clean modules ready for accounts, cloud sync and 3D characters.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="library" class="view">
+    <div class="toolbar">
+      <input id="q" placeholder="Search animations…" aria-label="Search animations">
+      <select id="prem" aria-label="Price filter">
+        <option value="">Free &amp; Premium</option><option>Free</option><option>Premium</option>
+      </select>
+      <select id="sort" aria-label="Sort">
+        <option value="trending">Trending</option><option value="latest">Latest</option><option value="popular">Popular</option>
+      </select>
+    </div>
+    <div class="chips" id="cats"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="editor" class="view">
+    <div class="studio">
+      <aside class="panel">
+        <div class="tabs">
+          <button class="on" data-tab="text">Text</button><button data-tab="bg">Background</button><button data-tab="fx">Effects</button><button data-tab="layers">Layers</button>
+        </div>
+        <div class="pane on" id="p-text"></div>
+        <div class="pane" id="p-bg"></div>
+        <div class="pane" id="p-fx"></div>
+        <div class="pane" id="p-layers"></div>
+      </aside>
+
+      <div class="center">
+        <div class="bar">
+          <button class="btn sm" id="play">Pause</button>
+          <button class="btn ghost sm" id="restart">Restart</button>
+          <span class="mono" id="clock">0.0s</span>
+          <label class="zoom">Zoom <input type="range" id="zoom" min="50" max="150" value="100"></label>
+          <span class="sp"></span>
+          <button class="btn ghost sm" id="fs">Fullscreen</button>
+          <button class="btn ghost sm" id="save">Save project</button>
+          <button class="btn sm" id="exp">Export</button>
+        </div>
+        <div class="stage" id="stage"><div class="pvwrap"><canvas id="pv" width="1280" height="720"></canvas></div></div>
+      </div>
+
+      <aside class="panel">
+        <h4>Properties</h4>
+        <div id="props"></div>
+      </aside>
+
+      <div class="tl">
+        <input type="range" id="scrub" min="0" max="1000" value="0" aria-label="Timeline">
+        <div class="tracks" id="tracks"><div class="ph" id="ph"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="view">
+    <div class="row-h"><h2>My Projects</h2><span class="muted">Saved in this browser</span></div>
+    <div id="plist"></div>
+    <div class="row"><h2>Recently viewed</h2><div class="chips" id="recent"></div></div>
+    <div class="row"><h2>My Downloads</h2><div id="dls"></div></div>
+  </section>
+
+  <section id="pricing" class="view">
+    <div class="row-h"><h2>Pricing</h2></div>
+    <div class="grid" id="plans"></div>
+    <p class="muted note">Plan limits are defined in the PLANS list in app.js. Payments are not enabled in this build.</p>
+  </section>
+</main>
+
+<div class="modal" id="exModal">
+  <div class="box">
+    <h3>Export</h3>
+    <div class="fg">
+      <label class="f">Format<select id="exFmt"></select></label>
+      <label class="f">Resolution<select id="exRes">
+        <option value="1280x720">720p</option><option value="1920x1080" selected>1080p</option>
+        <option value="2560x1440">1440p</option><option value="3840x2160">4K</option></select></label>
+      <label class="f">FPS<select id="exFps"><option>24</option><option selected>30</option><option>60</option></select></label>
+      <label class="f">File name<input id="exName" value="themeflow"></label>
+    </div>
+    <p class="muted note" id="exNote"></p>
+    <div class="pbar"><div id="exBar"></div></div>
+    <p id="exMsg" class="note"></p>
+    <a id="exLink" hidden></a>
+    <div class="bar end"><button class="btn ghost sm" id="exClose">Close</button><button class="btn sm" id="exGo">Start render</button></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+<script src="export.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ThemeFlow – Minecraft Character Studio</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .char{display:grid;grid-template-columns:280px minmax(0,1fr);gap:14px;height:calc(100vh - 80px);padding:16px 5vw}
+  .char .panel{overflow:auto}
+  .char .center{height:100%}
+  .char .stage{position:relative;padding:0;overflow:hidden}
+  #cv{width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+  #cv:active{cursor:grabbing}
+  .chips button.on{background:var(--v);color:#fff}
+  .hint{position:absolute;left:12px;bottom:10px;font-size:.8rem;color:var(--mu)}
+  @media(max-width:880px){.char{grid-template-columns:1fr;height:auto}.char .stage{height:55vh}}
+</style>
+</head>
+<body>
+<header class="nav">
+  <a class="logo" href="index.html">Theme<span class="gt">Flow</span></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#library">Explore</a>
+    <a class="on" href="character.html">Minecraft Characters</a>
+  </nav>
+</header>
+
+<main class="char">
+  <aside class="panel">
+    <h4>Skin</h4>
+    <label class="f">Upload skin (PNG, 64×64 or 64×32, under 300 KB)
+      <input type="file" id="skin" accept="image/png"></label>
+    <div class="chips" id="models">
+      <button data-model="classic" class="on">Classic (Steve)</button>
+      <button data-model="slim">Slim (Alex)</button>
+    </div>
+    <button class="btn ghost sm" id="reset" style="margin:10px 0 18px">Reset default skin</button>
+
+    <h4>Animation</h4>
+    <div class="chips" id="anims"></div>
+    <label class="f">Speed <output data-o="spd">1.00</output>
+      <input type="range" id="spd" min="0.2" max="3" step="0.05" value="1"></label>
+    <label class="f">Size <output data-o="size">1.00</output>
+      <input type="range" id="size" min="0.5" max="2" step="0.05" value="1"></label>
+    <label class="f">Background <input type="color" id="bg" value="#07050f"></label>
+  </aside>
+
+  <section class="center">
+    <div class="stage"><canvas id="cv"></canvas><span class="hint">Drag to rotate</span></div>
+    <div class="bar" style="margin-top:10px">
+      <button class="btn sm" id="play">Pause</button>
+      <button class="btn ghost sm" id="png">Save PNG</button>
+      <button class="btn sm" id="mp4">Export MP4 (5s, 720p)</button>
+      <span id="msg" class="muted"></span>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="export.js"></script>
+<script src="character.js"></script>
+</body>
+</html>
